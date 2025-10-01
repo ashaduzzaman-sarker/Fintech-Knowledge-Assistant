@@ -1,0 +1,24 @@
+version: "3.8"
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - PINECONE_API_KEY=${PINECONE_API_KEY}
+      - PINECONE_ENVIRONMENT=${PINECONE_ENVIRONMENT}
+      - PINECONE_INDEX_NAME=${PINECONE_INDEX_NAME}
+      - EMBEDDING_MODEL=${EMBEDDING_MODEL}
+    volumes:
+      - .:/app
+  streamlit:
+    image: python:3.10-slim
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: bash -c "pip install --upgrade pip && pip install -r requirements.txt && streamlit run streamlit_app.py --server.port 8501 --server.address 0.0.0.0"
+    ports:
+      - "8501:8501"
+    environment:
+      - API_URL=http://api:8000

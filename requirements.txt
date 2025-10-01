@@ -1,0 +1,18 @@
+fastapi
+uvicorn[standard]
+streamlit
+langchain>=0.0.300   # pick a recent langchain
+openai
+pinecone-client
+tiktoken
+python-multipart
+pydantic
+pdfplumber
+python-dotenv
+sentence-transformers
+scikit-learn
+numpy
+pandas
+requests
+gunicorn
+datasets
